@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>毅流康复监测</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand-block">
+      <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div>
+        <h1>毅流康复监测</h1>
+        <p>压力传感器实时数据</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="connection-state" id="connectionState" data-state="connecting">
+        <span class="status-dot"></span>
+        <span id="connectionText">正在连接</span>
+      </div>
+      <button class="icon-button" id="demoButton" type="button" title="切换演示数据" aria-label="切换演示数据">
+        <i data-lucide="activity"></i>
+      </button>
+      <button class="icon-button" id="connectionButton" type="button" title="断开连接" aria-label="断开连接">
+        <i data-lucide="power"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary-band" aria-label="设备数据摘要">
+      <div class="summary-item">
+        <span class="summary-label">在线通道</span>
+        <strong id="activeCount">0 / 5</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">压力合计</span>
+        <strong id="totalPressure">--</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">当前峰值</span>
+        <strong id="peakPressure">--</strong>
+      </div>
+      <div class="summary-item summary-time">
+        <span class="summary-label">最近更新</span>
+        <strong id="lastUpdate">等待数据</strong>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="sensor-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PRESSURE ARRAY</p>
+            <h2>五路压力</h2>
+          </div>
+          <span class="topic-label">yiliu/483fda021bd9/pressure</span>
+        </div>
+
+        <div class="sensor-grid" id="sensorGrid">
+          <article class="sensor-card" data-sensor="0">
+            <div class="sensor-card-head"><span>压力 01</span><span class="sensor-status">未接入</span></div>
+            <div class="sensor-value"><strong>--</strong><span>RAW</span></div>
+            <div class="pressure-track"><span></span></div>
+          </article>
+          <article class="sensor-card" data-sensor="1">
+            <div class="sensor-card-head"><span>压力 02</span><span class="sensor-status">未接入</span></div>
+            <div class="sensor-value"><strong>--</strong><span>RAW</span></div>
+            <div class="pressure-track"><span></span></div>
+          </article>
+          <article class="sensor-card" data-sensor="2">
+            <div class="sensor-card-head"><span>压力 03</span><span class="sensor-status">未接入</span></div>
+            <div class="sensor-value"><strong>--</strong><span>RAW</span></div>
+            <div class="pressure-track"><span></span></div>
+          </article>
+          <article class="sensor-card" data-sensor="3">
+            <div class="sensor-card-head"><span>压力 04</span><span class="sensor-status">未接入</span></div>
+            <div class="sensor-value"><strong>--</strong><span>RAW</span></div>
+            <div class="pressure-track"><span></span></div>
+          </article>
+          <article class="sensor-card" data-sensor="4">
+            <div class="sensor-card-head"><span>压力 05</span><span class="sensor-status">未接入</span></div>
+            <div class="sensor-value"><strong>--</strong><span>RAW</span></div>
+            <div class="pressure-track"><span></span></div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="side-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">LIVE TRACE</p>
+            <h2>压力 01 趋势</h2>
+          </div>
+          <span class="live-mark"><span></span>实时</span>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="pressureChart" aria-label="压力 01 实时趋势图"></canvas>
+        </div>
+        <div class="message-panel">
+          <div class="message-heading">
+            <h3>最近消息</h3>
+            <button class="text-button" id="clearLogButton" type="button">清空</button>
+          </div>
+          <div class="message-list" id="messageList">
+            <div class="empty-message">等待 MQTT 数据</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <span>MQTT over WebSocket</span>
+    <span>broker.emqx.io:8084</span>
+  </footer>
+
+  <script src="https://unpkg.com/mqtt@5.10.4/dist/mqtt.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
